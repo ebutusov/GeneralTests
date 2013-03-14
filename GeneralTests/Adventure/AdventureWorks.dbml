@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AdventureWorks" Class="AdventureWorksDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=AdventureWorks;Integrated Security=True" SettingsObjectName="GeneralTests.Properties.Settings" SettingsPropertyName="AdventureWorksConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="Person.Contact" Member="Contacts">
+    <Type Name="Contact">
+      <Column Name="ContactID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NameStyle" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Suffix" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="EmailAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="EmailPromotion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="PasswordHash" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordSalt" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="AdditionalContactInfo" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="rowguid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Contact_Individual" Member="Individuals" ThisKey="ContactID" OtherKey="ContactID" Type="Individual" />
+    </Type>
+  </Table>
+  <Table Name="Person.ContactType" Member="ContactTypes">
+    <Type Name="ContactType">
+      <Column Name="ContactTypeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="Sales.Customer" Member="Customers">
+    <Type Name="Customer">
+      <Column Name="CustomerID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TerritoryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AccountNumber" Type="System.String" DbType="VarChar(10) NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="CustomerType" Type="System.Char" DbType="NChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="rowguid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Customer_Individual" Member="Individual" ThisKey="CustomerID" OtherKey="CustomerID" Type="Individual" Cardinality="One" />
+      <Association Name="Customer_Store" Member="Store" ThisKey="CustomerID" OtherKey="CustomerID" Type="Store" Cardinality="One" />
+      <Association Name="Customer_CustomerAddress" Member="CustomerAddresses" ThisKey="CustomerID" OtherKey="CustomerID" Type="CustomerAddress" />
+    </Type>
+  </Table>
+  <Table Name="Sales.Individual" Member="Individuals">
+    <Type Name="Individual">
+      <Column Name="CustomerID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ContactID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Demographics" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Contact_Individual" Member="Contact" ThisKey="ContactID" OtherKey="ContactID" Type="Contact" IsForeignKey="true" />
+      <Association Name="Customer_Individual" Member="Customer" ThisKey="CustomerID" OtherKey="CustomerID" Type="Customer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="Sales.Store" Member="Stores">
+    <Type Name="Store">
+      <Column Name="CustomerID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SalesPersonID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Demographics" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="rowguid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Customer_Store" Member="Customer" ThisKey="CustomerID" OtherKey="CustomerID" Type="Customer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="Person.Address" Member="Addresses">
+    <Type Name="Address">
+      <Column Name="AddressID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AddressLine1" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="AddressLine2" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="StateProvinceID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PostalCode" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="rowguid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Address_CustomerAddress" Member="CustomerAddresses" ThisKey="AddressID" OtherKey="AddressID" Type="CustomerAddress" />
+    </Type>
+  </Table>
+  <Table Name="Sales.CustomerAddress" Member="CustomerAddresses">
+    <Type Name="CustomerAddress">
+      <Column Name="CustomerID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AddressID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AddressTypeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="rowguid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Address_CustomerAddress" Member="Address" ThisKey="AddressID" OtherKey="AddressID" Type="Address" IsForeignKey="true" />
+      <Association Name="Customer_CustomerAddress" Member="Customer" ThisKey="CustomerID" OtherKey="CustomerID" Type="Customer" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
