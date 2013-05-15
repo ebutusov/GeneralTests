@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GeneralTests
 {
-	[AttributeUsage(AttributeTargets.All)]
+	[AttributeUsage(AttributeTargets.Class, Inherited=false, AllowMultiple=false)]
 	public class TestCaseAttribute : System.Attribute
 	{
 		private string name;
@@ -19,7 +19,7 @@ namespace GeneralTests
 		}
 	}
 
-	[AttributeUsage(AttributeTargets.All)]
+	[AttributeUsage(AttributeTargets.Method, Inherited=false, AllowMultiple=false)]
 	public class TestCaseMethodAttribute : System.Attribute
 	{
 		private string desc;

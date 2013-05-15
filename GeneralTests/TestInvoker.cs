@@ -45,16 +45,15 @@ namespace GeneralTests
 			{
 				if (t.IsClass)
 				{
+					if (!t.IsDefined(typeof(TestCaseAttribute), false)) continue;
 					object[] attrs = t.GetCustomAttributes(typeof(TestCaseAttribute), false);
-					if (attrs.Length == 0) continue;
 					TestCaseAttribute attr = (TestCaseAttribute)attrs[0];
 					TestCell cell = new TestCell() { TestType = t, TestName = attr.Name };
 
 					foreach (MethodInfo mi in t.GetMethods())
 					{
+						if (!mi.IsDefined(typeof(TestCaseMethodAttribute), false)) continue;
 						object[] mattrs = mi.GetCustomAttributes(typeof(TestCaseMethodAttribute), false);
-						if (mattrs.Length == 0) 
-							continue;
 						TestCaseMethodAttribute mattr = (TestCaseMethodAttribute)mattrs[0];
 						ParameterInfo[] pi = mi.GetParameters();
 						MetaMethod mm = new MetaMethod() { Name = mi.Name, Description = mattr.Description, AcceptsSink = false };

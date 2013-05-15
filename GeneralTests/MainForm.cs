@@ -34,6 +34,7 @@ namespace GeneralTests
 		public MainForm()
 		{
 			InitializeComponent();
+			ResultSinkFactory.Register(this);
 		}
 
 		private void InitTests()

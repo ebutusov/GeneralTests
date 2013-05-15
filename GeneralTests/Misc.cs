@@ -8,6 +8,25 @@ using System.Reflection;
 namespace GeneralTests
 {
 
+	class X
+	{
+		Y b = new Y();
+		public X() { ResultSinkFactory.Get().Send("X"); }
+	}
+
+	class Y
+	{
+		public Y() { ResultSinkFactory.Get().Send("Y"); }
+	}
+
+	class Z : X
+	{
+		Y y = new Y();
+		public Z() { ResultSinkFactory.Get().Send("Z"); }
+	}
+
+
+
 	partial class SomeBaseClass<T>
 		where T : SomeBaseClass<T>
 	{
@@ -64,6 +83,12 @@ namespace GeneralTests
 		{
 			SomeOtherClass soc = new SomeOtherClass();
 			soc.CallMethod(irs);
+		}
+
+		[TestCaseMethod("Inheritance test")]
+		public void TestInheritance(IResultSink irs)
+		{
+			Z z = new Z();
 		}
 
 		[TestCaseMethod("BitConverter test")]

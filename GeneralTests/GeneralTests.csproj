@@ -79,6 +79,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AdventureWorks.dbml</DependentUpon>
     </Compile>
+    <Compile Include="LinqScratchPad.cs" />
     <Compile Include="MathTests.cs" />
     <Compile Include="HundredRects.cs">
       <SubType>Form</SubType>
