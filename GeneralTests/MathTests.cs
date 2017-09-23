@@ -44,7 +44,6 @@ namespace GeneralTests
 	public class PermEnumerator<T> : IEnumerator<T[]>
 	{
 		private Permutator<T> m_gen;
-
 		public void Dispose() { }
 
 		public PermEnumerator(Permutator<T> gen)

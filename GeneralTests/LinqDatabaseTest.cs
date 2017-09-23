@@ -9,40 +9,40 @@ using System.IO;
 namespace GeneralTests
 {
 
-  [Table(Name="Sales.CreditCard")]
-  public class CreditCardInfo
-  {
-    [Column]
-    public string CardType;
+	[Table(Name="Sales.CreditCard")]
+	public class CreditCardInfo
+	{
+		[Column]
+		public string CardType;
 
-    [Column]
-    public string CardNumber;
+		[Column]
+		public string CardNumber;
 
-    [Column]
-    public short ExpYear;
-  }
+		[Column]
+		public short ExpYear;
+	}
 
-  [TestCase("Database Raw Test")]
-  public class LinqRaw
-  {
-    [TestCaseMethod("Retreive credit cards")]
-    public void GetCards(IResultSink sink)
-    {
-      DataContext db = new DataContext("server=.;database=adventureworks2008;integrated security=true");
-      Table<CreditCardInfo> cards = db.GetTable<CreditCardInfo>();
+	[TestCase("Database Raw Test")]
+	public class LinqRaw
+	{
+		[TestCaseMethod("Retreive credit cards")]
+		public void GetCards(IResultSink sink)
+		{
+			DataContext db = new DataContext("server=.;database=adventureworks2008;integrated security=true");
+			Table<CreditCardInfo> cards = db.GetTable<CreditCardInfo>();
 
-      var r =
-        from c in cards
-        where c.ExpYear > 2007 && c.ExpYear < 2010
-        select c;
+			var r =
+				from c in cards
+				where c.ExpYear > 2007 && c.ExpYear < 2010
+				select c;
 
-      
-        foreach (var card in r.Take(10))
-        {
-          sink.Send(card.CardType + " " + card.CardNumber + " " + card.ExpYear.ToString() + "\n");
-        }
-      }
-  }
+			
+				foreach (var card in r.Take(10))
+				{
+					sink.Send(card.CardType + " " + card.CardNumber + " " + card.ExpYear.ToString() + "\n");
+				}
+			}
+	}
 
 	[TestCase("Database Linq tests")]
 	public class LinqDatabase

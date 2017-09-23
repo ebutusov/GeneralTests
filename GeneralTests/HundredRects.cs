@@ -67,10 +67,11 @@ namespace GeneralTests
 	}
 
 	[TestCase("Hundred rectangles")]
-	public class HundredRectsTest
+	public class HundredRectsTest : IDisposable
 	{
 		HundredRects form = null;
-	
+		bool m_disposed = false;
+
 		[TestCaseMethod("Start")]
 		public void StartTest()
 		{
@@ -89,5 +90,23 @@ namespace GeneralTests
 			form.Close();
 			form = null;
 		}
+
+		#region IDisposable Members
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!m_disposed)
+			{
+				form.Dispose();
+			}
+			m_disposed = true;
+		}
+
+		public void Dispose()
+		{
+			Dispose(true);
+		}
+
+		#endregion
 	}
 }

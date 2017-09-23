@@ -10,7 +10,7 @@ namespace GeneralTests
 	[TestCase("New feautres in .NET 4.5")]
 	class Net45Features
 	{
-		public void ResteTest() { }
+		public void ResetTest() { }
 
 		private string GetSomeStringTakesLongTime()
 		{

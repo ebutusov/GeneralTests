@@ -70,7 +70,6 @@ namespace GeneralTests
 					new IsolatedStorageFileStream(storagefile, FileMode.Create, isoStore))
 				{
 					ser.Serialize(isfs, state);
-					isfs.Close();
 				}
 			}
 			catch (Exception e)
@@ -92,7 +91,6 @@ namespace GeneralTests
 					new IsolatedStorageFileStream(storagefile, FileMode.Open, isoStore))
 				{
 					ti = (TestState)ser.Deserialize(isfs);
-					isfs.Close();
 				}
 				comboTests.SelectedIndex = comboTests.FindStringExact(ti.TestName);
 				comboMethods.SelectedIndex = comboMethods.FindStringExact(ti.MethodName);
